@@ -34,7 +34,7 @@ Some packages may only be included on certain architectures or operating systems
  - [github.com/aws/smithy-go](https://pkg.go.dev/github.com/aws/smithy-go) ([Apache-2.0](https://github.com/aws/smithy-go/blob/v1.19.0/LICENSE))
  - [github.com/aws/smithy-go/internal/sync/singleflight](https://pkg.go.dev/github.com/aws/smithy-go/internal/sync/singleflight) ([BSD-3-Clause](https://github.com/aws/smithy-go/blob/v1.19.0/internal/sync/singleflight/LICENSE))
  - [github.com/bits-and-blooms/bitset](https://pkg.go.dev/github.com/bits-and-blooms/bitset) ([BSD-3-Clause](https://github.com/bits-and-blooms/bitset/blob/v1.13.0/LICENSE))
- - [github.com/coreos/go-iptables/iptables](https://pkg.go.dev/github.com/coreos/go-iptables/iptables) ([Apache-2.0](https://github.com/coreos/go-iptables/blob/v0.7.0/LICENSE))
+ - [github.com/coreos/go-iptables/iptables](https://pkg.go.dev/github.com/coreos/go-iptables/iptables) ([Apache-2.0](https://github.com/coreos/go-iptables/blob/65c67c9f46e6/LICENSE))
  - [github.com/coreos/go-systemd/v22/dbus](https://pkg.go.dev/github.com/coreos/go-systemd/v22/dbus) ([Apache-2.0](https://github.com/coreos/go-systemd/blob/v22.5.0/LICENSE))
  - [github.com/creack/pty](https://pkg.go.dev/github.com/creack/pty) ([MIT](https://github.com/creack/pty/blob/v1.1.21/LICENSE))
  - [github.com/dblohm7/wingoes](https://pkg.go.dev/github.com/dblohm7/wingoes) ([BSD-3-Clause](https://github.com/dblohm7/wingoes/blob/a09d6be7affa/LICENSE))

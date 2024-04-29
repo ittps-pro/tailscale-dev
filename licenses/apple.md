@@ -29,7 +29,7 @@ See also the dependencies in the [Tailscale CLI][].
  - [github.com/aws/smithy-go](https://pkg.go.dev/github.com/aws/smithy-go) ([Apache-2.0](https://github.com/aws/smithy-go/blob/v1.19.0/LICENSE))
  - [github.com/aws/smithy-go/internal/sync/singleflight](https://pkg.go.dev/github.com/aws/smithy-go/internal/sync/singleflight) ([BSD-3-Clause](https://github.com/aws/smithy-go/blob/v1.19.0/internal/sync/singleflight/LICENSE))
  - [github.com/bits-and-blooms/bitset](https://pkg.go.dev/github.com/bits-and-blooms/bitset) ([BSD-3-Clause](https://github.com/bits-and-blooms/bitset/blob/v1.13.0/LICENSE))
- - [github.com/coreos/go-iptables/iptables](https://pkg.go.dev/github.com/coreos/go-iptables/iptables) ([Apache-2.0](https://github.com/coreos/go-iptables/blob/v0.7.0/LICENSE))
+ - [github.com/coreos/go-iptables/iptables](https://pkg.go.dev/github.com/coreos/go-iptables/iptables) ([Apache-2.0](https://github.com/coreos/go-iptables/blob/65c67c9f46e6/LICENSE))
  - [github.com/coreos/go-systemd/v22/dbus](https://pkg.go.dev/github.com/coreos/go-systemd/v22/dbus) ([Apache-2.0](https://github.com/coreos/go-systemd/blob/v22.5.0/LICENSE))
  - [github.com/digitalocean/go-smbios/smbios](https://pkg.go.dev/github.com/digitalocean/go-smbios/smbios) ([Apache-2.0](https://github.com/digitalocean/go-smbios/blob/390a4f403a8e/LICENSE.md))
  - [github.com/djherbis/times](https://pkg.go.dev/github.com/djherbis/times) ([MIT](https://github.com/djherbis/times/blob/v1.6.0/LICENSE))
@@ -92,5 +92,5 @@ See also the dependencies in the [Tailscale CLI][].
  - [Sparkle](https://sparkle-project.org/) ([MIT](https://github.com/sparkle-project/Sparkle/blob/2.x/LICENSE))
  - [wireguard-apple](https://git.zx2c4.com/wireguard-apple) ([MIT](https://git.zx2c4.com/wireguard-apple/tree/COPYING))
  - [apple-oss-distributions/configd](https://github.com/apple-oss-distributions/configd) ([APSL](https://github.com/apple-oss-distributions/configd/blob/main/APPLE_LICENSE))
- - [WebDAV-Swift](https://github.com/skjiisa/WebDAV-Swift) ([BSD](https://github.com/skjiisa/WebDAV-Swift#BSD-2-Clause-1-ov-file)
- 
+ - [WebDAV-Swift](https://github.com/skjiisa/WebDAV-Swift) ([BSD](https://github.com/skjiisa/WebDAV-Swift#BSD-2-Clause-1-ov-file))
+ - [CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image) ([MIT](https://github.com/lorenzofiamingo/swiftui-cached-async-image/blob/main/LICENSE.md))
