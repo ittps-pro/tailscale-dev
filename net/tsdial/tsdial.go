@@ -17,17 +17,16 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gaissmai/bart"
 	"tailscale.com/net/dnscache"
 	"tailscale.com/net/netknob"
 	"tailscale.com/net/netmon"
 	"tailscale.com/net/netns"
-	"tailscale.com/net/tsaddr"
 	"tailscale.com/types/logger"
 	"tailscale.com/types/netmap"
 	"tailscale.com/util/clientmetric"
 	"tailscale.com/util/mak"
 	"tailscale.com/util/testenv"
-	"tailscale.com/version"
 )
 
 // NewDialer returns a new Dialer that can dial out of tailscaled.
@@ -76,6 +75,7 @@ type Dialer struct {
 	dnsCache         *dnscache.MessageCache // nil until first non-empty SetExitDNSDoH
 	nextSysConnID    int
 	activeSysConns   map[int]net.Conn // active connections not yet closed
+	routes           bart.Table[bool] // true indicates routes that point into the Tailscale interface
 }
 
 // sysConn wraps a net.Conn that was created using d.SystemDial.
@@ -126,6 +126,20 @@ func (d *Dialer) SetExitDNSDoH(doh string) {
 	}
 	if d.dnsCache != nil {
 		d.dnsCache.Flush()
+	}
+}
+
+// SetRoutes configures the dialer to dial the specified routes via Tailscale,
+// and the specified localRoutes using the default interface.
+func (d *Dialer) SetRoutes(routes, localRoutes []netip.Prefix) {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+	d.routes = bart.Table[bool]{}
+	for _, r := range routes {
+		d.routes.Insert(r, true)
+	}
+	for _, r := range localRoutes {
+		d.routes.Insert(r, false)
 	}
 }
 
@@ -387,17 +401,16 @@ func (d *Dialer) UserDial(ctx context.Context, network, addr string) (net.Conn, 
 		}
 		return d.NetstackDialTCP(ctx, ipp)
 	}
-	// Workaround for macOS for now: dial Tailscale IPs with peer dialer.
-	// TODO(bradfitz): fix dialing subnet routers, public IPs via exit nodes,
-	// etc. This is a temporary partial for macOS. We need to plumb ART tables &
-	// prefs & host routing table updates around in more places. We just don't
-	// know from the limited context here how to dial properly.
-	if version.IsMacGUIVariant() && tsaddr.IsTailscaleIP(ipp.Addr()) {
+
+	d.mu.Lock()
+	isTailscaleRoute, _ := d.routes.Get(ipp.Addr())
+	d.mu.Unlock()
+
+	if isTailscaleRoute {
 		return d.getPeerDialer().DialContext(ctx, network, ipp.String())
 	}
-	// TODO(bradfitz): netns, etc
-	var stdDialer net.Dialer
-	return stdDialer.DialContext(ctx, network, ipp.String())
+
+	return d.SystemDial(ctx, network, ipp.String())
 }
 
 // dialPeerAPI connects to a Tailscale peer's peerapi over TCP.
@@ -424,7 +437,7 @@ func (d *Dialer) dialPeerAPI(ctx context.Context, network, addr string) (net.Con
 }
 
 // getPeerDialer returns the *net.Dialer to use to dial peers (e.g. for peerapi,
-// or "tailscale nc")
+// "tailscale nc", or querying internal DNS servers over Tailscale)
 //
 // This is not used in netstack mode.
 //

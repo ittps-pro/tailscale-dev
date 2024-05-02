@@ -3636,6 +3636,8 @@ func (b *LocalBackend) authReconfig() {
 	}
 	b.logf("[v1] authReconfig: ra=%v dns=%v 0x%02x: %v", prefs.RouteAll(), prefs.CorpDNS(), flags, err)
 
+	b.dialer.SetRoutes(rcfg.Routes, rcfg.LocalRoutes)
+
 	b.initPeerAPIListener()
 }
 
