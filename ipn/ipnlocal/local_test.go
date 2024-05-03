@@ -3438,7 +3438,7 @@ func TestMinLatencyDERPregion(t *testing.T) {
 	}
 }
 
-func TestSuggestLastExitNode(t *testing.T) {
+func TestLastSuggestedExitNodeAsAPIType(t *testing.T) {
 	tests := []struct {
 		name                      string
 		lastSuggestedExitNode     lastSuggestedExitNode
@@ -3460,7 +3460,7 @@ func TestSuggestLastExitNode(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := suggestLastExitNode(tt.lastSuggestedExitNode)
+			got, err := tt.lastSuggestedExitNode.asAPIType()
 			if got != tt.wantRes || err != tt.wantErr {
 				t.Errorf("got %v error %v, want %v error %v", got, err, tt.wantRes, tt.wantErr)
 			}
@@ -3772,7 +3772,7 @@ func TestLocalBackendSuggestExitNode(t *testing.T) {
 		lb := newTestLocalBackend(t)
 		lb.lastSuggestedExitNode = tt.lastSuggestedExitNode
 		lb.netMap = &tt.netMap
-		lb.sys.MagicSock.Get().SetLastNetcheckReport(context.Background(), tt.report)
+		lb.sys.MagicSock.Get().SetLastNetcheckReportForTest(context.Background(), &tt.report)
 		got, err := lb.SuggestExitNode()
 		if got.ID != tt.wantID {
 			t.Errorf("ID=%v, want=%v", got.ID, tt.wantID)
